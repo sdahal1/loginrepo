@@ -1,0 +1,3 @@
+Event.objects.create(name = "Blakes Graduation Happy Hour", description = "A place to talk off topic for all the interesting stuff rob didnt want to talk about to avoid using up lecture time", location = "South Beach Zoom", startTime = "2021-03-05 03:00:00",endTime = "2021-03-05 05:00:00", planner= User.objects.get(id=12))
+
+Event.objects.create(name = "Stephs shooting camp", description = "Y'all gon learn today what a great shot look like", location = "Oakland Zoom", startTime = "2022-03-05 03:00:00",endTime = "2022-03-06 05:00:00", planner= User.objects.get(id=8))

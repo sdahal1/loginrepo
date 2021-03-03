@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Please Register below</h1>
+    {% if messages %}
+        {% for message in messages %}
+            <p style = "color:red;">{{message}}</p>
+        {% endfor %}
+    {% endif %}
+    <form action="/register" method="post">
+        {% csrf_token %}
+        <p>First Name: <input type="text" name="fname" id=""></p>
+        <p>Last Name: <input type="text" name="lname" id=""></p>
+        <p>Email: <input type="text" name="email" id=""></p>
+        <p>Password: <input type="text" name="pw" id=""></p>
+        <p>Confirm Password: <input type="text" name="cpw" id=""></p>
+        <p>Birthday: <input type="date" name="birthday" id=""></p>
+        <input type="submit" value="Register!">
+    </form>
+
+    <h3>Login</h3>
+    <form action="/login" method="post">
+        {% csrf_token %}
+        <p>Email: <input type="text" name="email" id=""></p>
+        <p>Password: <input type="text" name="pw" id=""></p>
+        <input type="submit" value="Login!">
+    </form>
+
+
+
+</body>
+</html>

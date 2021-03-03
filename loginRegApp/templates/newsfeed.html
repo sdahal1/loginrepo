@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .eventbox{
+            border: 1px solid black;
+            background-color: bisque;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome back {{loggedinUser.firstName}}! </h1>
+    <a href="/logout">Logout</a>
+    <h3>Planning an event? Share it with the community!</h3>
+    {% if messages %}
+        {% for message in messages %}
+            <p style = "color: red;">{{message}}</p>
+        {% endfor %}
+    {% endif %}
+    <form action="/createEvent" method="post">
+        {% csrf_token %}
+        <p>Name: <input type="text" name="name" id=""></p>
+        <p>Description: <textarea name="desc" id="" cols="30" rows="10"></textarea></p>
+        <p>Location: <input type="text" name="location" id=""></p>
+        <p>Start Time: <input type="datetime-local" name="start" id=""></p>
+        <p>End Time: <input type="datetime-local" name="end" id=""></p>
+        <p><input type="submit" value="Plan the Event!"></p>
+    </form>
+
+    <h3>Here are all the events to check out!</h3>
+    
+    {% for event in allevents %}
+    <div class="eventbox">
+        <h1>{{event.name}}</h1>
+        <h3>Hosted by: <a href="/users/{{event.planner.id}}">{{event.planner.firstName}}</a></h3>
+        <p>{{event.description}}</p>
+        <p>Starts on: {{event.startTime}}</p>
+        <p><a href="/events/{{event.id}}"><button>More Details</button></a> | 
+            {% if event.planner == loggedinUser %}
+            <a href="/events/{{event.id}}/delete"><button>Delete</button></a>
+            {% endif %}
+        </p>
+    </div>
+    {% endfor %}
+</body>
+</html>

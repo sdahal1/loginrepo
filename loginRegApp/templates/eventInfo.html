@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Here is info about {{eventObj.name}}</h1>
+    <p>Description: {{eventObj.description}}</p>
+    <p>Location: {{eventObj.location}}</p>
+    <p>Start on: {{eventObj.startTime}}</p>
+    <p>End by: {{eventObj.endTime}} (Or when everyone leaves)</p>
+    <p>Host of the event: {{eventObj.planner.firstName}}</p>
+    <p>People going to this event:</p>
+    {{eventObj.attendees.all}}
+    <ul>
+    {% for user in eventObj.attendees.all %}
+        <li>{{user.firstName}}</li>
+    {% endfor %}
+    </ul>
+    {% if loggedinuser == eventObj.planner %}
+    <h3>Change of plans? Edit the information below</h3>
+    <form action="/updateEvent/{{eventObj.id}}" method="post">
+        {% csrf_token %}
+        <p>Name: <input type="text" name="name" value = "{{eventObj.name}}"id=""></p>
+        <p>Description: <textarea name="desc" id="" cols="30" rows="10">{{eventObj.description}}</textarea></p>
+        <p>Location: <input type="text" name="location" id="" value = "{{eventObj.location}}"></p>
+        <p>Start Time: <input type="datetime-local" name="start" value = "{{eventObj.start|date:'Y-m-d H:i'}}"></p> {{ value|date:"D d M Y" }}
+        <p>End Time: <input type="datetime-local" name="end" id=""></p>
+        <p><input type="submit" value="Update the Event!"></p>
+    </form>
+   {%  endif %}
+</body>
+</html>
